@@ -1,39 +1,48 @@
 import { useEffect, useState } from "react"
-import { Cliente } from "./types/Cliente"
+import { ICustomer } from "./types/ICustomer"
 import { parseCsv } from "./utils/parseCsv"
+import { useNavigate } from "react-router"
 
 export const App = () => {
-  const [clients, setClients] = useState<Cliente[]>([])
+  const [customers, setCustomers] = useState<ICustomer[]>([])
   const [loading, setLoading] = useState(true)
+
+  const navigate = useNavigate()
 
   const getClients = async () => {
     try {
-      const response = await fetch(import.meta.env.VITE_CLIENT_API_URL)
+      const response = await fetch(import.meta.env.VITE_CUSTOMERS_API_URL)
       const csvText = await response.text()
 
-      const parsedClients = parseCsv(csvText).map((client) => {
+      const parsedClients: ICustomer[] = parseCsv(csvText).map((customer) => {
         return {
-          id: client["id"],
-          cpfCnpj: client["cpfCnpj"],
-          rg: client["rg"],
-          dataNascimento: new Date(client["dataNascimento"]),
-          nome: client["nome"],
-          nomeSocial: client["nomeSocial"],
-          email: client["email"],
-          endereco: client["endereco"],
-          rendaAnual: Number(client["rendaAnual"]),
-          patrimonio: Number(client["patrimonio"]),
-          estadoCivil: client["estadoCivil"] as Cliente["estadoCivil"],
-          codigoAgencia: Number(client["codigoAgencia"]),
+          id: customer["id"],
+          cpfCnpj: customer["cpfCnpj"],
+          rg: customer["rg"],
+          birthDate: new Date(customer["dataNascimento"]),
+          name: customer["nome"],
+          nickname: customer["nomeSocial"],
+          email: customer["email"],
+          address: customer["endereco"],
+          annualIncome: Number(customer["rendaAnual"]),
+          patrimony: Number(customer["patrimonio"]),
+          maritalStatus: customer["estadoCivil"] as ICustomer["maritalStatus"],
+          agencyCode: Number(customer["codigoAgencia"]),
         }
       })
 
-      setClients(parsedClients)
+      setCustomers(parsedClients)
       setLoading(false)
     }
     catch (error) {
       console.error(error)
     }
+  }
+
+  const viewCustomer = (id: string) => {
+     navigate('/customer', {
+      state: customers.find(customer => customer.id === id)
+     })
   }
 
   useEffect(() => {
@@ -48,7 +57,9 @@ export const App = () => {
       )}
       {!loading && (
         <div>
-          <p>{clients.map(row => row.id)}</p>
+          {customers.map((customer) => (
+            <p key={customer.id} onClick={() => viewCustomer(customer.id)}>{customer.name}</p>
+          ))}
         </div>
       )}
     </div>

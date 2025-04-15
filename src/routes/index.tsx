@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import { App } from "../App.tsx";
-import { Client } from "../pages/Client/index.tsx";
+import { Customer } from "../pages/Customer";
 
   
 export const router = createBrowserRouter([
@@ -9,8 +9,8 @@ export const router = createBrowserRouter([
       element: <App />,
     },
     {
-      path: "/client",
-      element: <Client />,
+      path: "/customer",
+      element: <Customer />,
     },
   ]);
   
