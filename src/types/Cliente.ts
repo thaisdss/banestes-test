@@ -1,6 +1,6 @@
 export interface Cliente {
     id: string;
-    cpfCnpj?: string;
+    cpfCnpj: string;
     rg?: string;
     dataNascimento: Date;
     nome: string;

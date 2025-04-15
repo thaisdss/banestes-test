@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import { App } from "../App.tsx";
-import { Client } from "../components/Client";
+import { Client } from "../pages/Client/index.tsx";
 
   
 export const router = createBrowserRouter([
