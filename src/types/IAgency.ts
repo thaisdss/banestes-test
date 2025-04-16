@@ -1,4 +1,4 @@
-export interface IBankAgency {
+export interface IAgency {
     id: string;
     code: number;
     name: string;

@@ -1,28 +1,28 @@
 import { useEffect, useState } from "react"
 import { parseCsv } from "../../utils/parseCsv"
-import { IBankAccount } from "../../types/IBankAccount"
-import { IBankAgency } from "../../types/IBankAgency"
 import { ICustomer } from "../../types/ICustomer"
+import { IAccount } from "../../types/IAccount"
+import { IAgency } from "../../types/IAgency"
 import { useLocation } from "react-router"
 
 export const Customer = () => {
   const location = useLocation();
   const customer = location.state as ICustomer;
 
-  const [bankAccounts, setBankAccounts] = useState<IBankAccount[]>([])
-  const [bankAgencies, setBankAgencies] = useState<IBankAgency[]>([])
+  const [bankAccounts, setBankAccounts] = useState<IAccount[]>([])
+  const [bankAgencies, setBankAgencies] = useState<IAgency[]>([])
   const [loading, setLoading] = useState(true)
 
   const getBankAccounts = async () => {
       try {
-        const response = await fetch(import.meta.env.VITE_BANK_ACCOUNTS_API_URL)
+        const response = await fetch(import.meta.env.VITE_ACCOUNTS_API_URL)
         const csvText = await response.text()
   
-        const parsedBankAccounts: IBankAccount[] = parseCsv(csvText).map((bankAccount) => {
+        const parsedBankAccounts: IAccount[] = parseCsv(csvText).map((bankAccount) => {
           return {
             id: bankAccount["id"],
             customersCpfCnpj: bankAccount["cpfCnpjCliente"],
-            type: bankAccount["tipo"] as IBankAccount["type"],
+            type: bankAccount["tipo"] as IAccount["type"],
             balance: Number(bankAccount["saldo"]),
             creditLimit: Number(bankAccount["limiteCredito"]),
             creditAvailable: Number(bankAccount["creditoDisponivel"]),
@@ -38,10 +38,10 @@ export const Customer = () => {
   
   const getBankAgencies = async () => {
       try {
-        const response = await fetch(import.meta.env.VITE_BANK_AGENCIES_API_URL)
+        const response = await fetch(import.meta.env.VITE_AGENCIES_API_URL)
         const csvText = await response.text()
   
-        const parsedBankAgencies: IBankAgency[] = parseCsv(csvText).map((bankAgency) => {
+        const parsedBankAgencies: IAgency[] = parseCsv(csvText).map((bankAgency) => {
           return {
             id: bankAgency["id"],
             code: Number(bankAgency["codigo"]),

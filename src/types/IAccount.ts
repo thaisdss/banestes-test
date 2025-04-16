@@ -1,4 +1,4 @@
-export interface IBankAccount {
+export interface IAccount {
     id: string;
     customersCpfCnpj: string;
     type: "corrente" | "poupanca"

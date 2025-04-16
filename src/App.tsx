@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router"
+
 import { ICustomer } from "./types/ICustomer"
 import { parseCsv } from "./utils/parseCsv"
-import { useNavigate } from "react-router"
+
+import { Container } from "./styles/App.styles"
+import logo from "./assets/logo.png"
 
 export const App = () => {
   const [customers, setCustomers] = useState<ICustomer[]>([])
@@ -50,8 +54,8 @@ export const App = () => {
   }, [])
 
   return (
-    <div>
-      <h1>Home</h1>
+    <Container>
+      <img src={logo} alt="Banestes" />
       {loading && (
         <p>Carregando...</p>
       )}
@@ -62,6 +66,6 @@ export const App = () => {
           ))}
         </div>
       )}
-    </div>
+    </Container>
   )
 }
