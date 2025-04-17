@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
-
 import { ICustomer } from "./types/ICustomer"
 import { parseCsv } from "./utils/parseCsv"
+import { maskCpfCnpj } from "./utils/maskCpfCnpj"
+import logo from "./assets/logo.png"
+import { GridActionsCellItem, GridColDef, GridRowParams } from "@mui/x-data-grid"
+import { Table } from "./components/Table"
+import VisibilityIcon from '@mui/icons-material/Visibility'
 
 import { Container } from "./styles/App.styles"
-import logo from "./assets/logo.png"
+import { TableContainer } from "./styles/App.styles"
 
 export const App = () => {
   const [customers, setCustomers] = useState<ICustomer[]>([])
@@ -21,7 +25,7 @@ export const App = () => {
       const parsedClients: ICustomer[] = parseCsv(csvText).map((customer) => {
         return {
           id: customer["id"],
-          cpfCnpj: customer["cpfCnpj"],
+          cpfCnpj: maskCpfCnpj(customer["cpfCnpj"]),
           rg: customer["rg"],
           birthDate: new Date(customer["dataNascimento"]),
           name: customer["nome"],
@@ -53,6 +57,24 @@ export const App = () => {
     getClients()
   }, [])
 
+  const columns: GridColDef<ICustomer>[] = [
+    {field: "name", headerName: "Nome", flex: 1},
+    {field: 'cpfCnpj', headerName: 'CPF/CNPJ', flex: 1},
+    {field: 'email', headerName: 'E-mail', flex: 1},
+    {field:"actions", 
+      type: "actions", 
+      headerName: "Ações",
+      flex: 0.5, 
+      getActions: (params: GridRowParams) => [
+      <GridActionsCellItem 
+      icon={<VisibilityIcon />}
+      label="Visualizar"
+      onClick={() => viewCustomer(params.row.id)}
+      showInMenu={false}
+      />
+  ]}
+  ]
+
   return (
     <Container>
       <img src={logo} alt="Banestes" />
@@ -60,11 +82,9 @@ export const App = () => {
         <p>Carregando...</p>
       )}
       {!loading && (
-        <div>
-          {customers.map((customer) => (
-            <p key={customer.id} onClick={() => viewCustomer(customer.id)}>{customer.name}</p>
-          ))}
-        </div>
+        <TableContainer>
+          <Table columns={columns} rows={customers} />
+        </TableContainer>
       )}
     </Container>
   )

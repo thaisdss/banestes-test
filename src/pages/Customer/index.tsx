@@ -4,6 +4,7 @@ import { ICustomer } from "../../types/ICustomer"
 import { IAccount } from "../../types/IAccount"
 import { IAgency } from "../../types/IAgency"
 import { useLocation } from "react-router"
+import { formatCurrency } from "../../utils/formatCurrency"
 
 export const Customer = () => {
   const location = useLocation();
@@ -72,7 +73,7 @@ export const Customer = () => {
         <div>
           <p>{bankAccounts.map(row => row.id)}</p>
           <p>{bankAgencies.map(row => row.id)}</p>
-          <p>{customer.name}</p>
+          <p>{formatCurrency(customer.patrimony)}</p>
         </div>
       )}
     </div>
