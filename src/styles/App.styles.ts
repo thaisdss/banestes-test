@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     width: 100%;
+    overflow-x: auto;
 
     > img {
         width: 200px;
@@ -14,4 +15,6 @@ export const TableContainer = styled.div`
     flex-direction: column;
     gap: 24px;
     padding: 0px 32px 32px 32px;
+    min-width: 800px;
+    width: 100%;
 `

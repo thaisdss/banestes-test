@@ -1,57 +1,60 @@
 import { useEffect, useState } from "react"
+import { useLocation } from "react-router"
+
 import { parseCsv } from "../../utils/parseCsv"
 import { ICustomer } from "../../types/ICustomer"
 import { IAccount } from "../../types/IAccount"
 import { IAgency } from "../../types/IAgency"
-import { useLocation } from "react-router"
+
 import { formatCurrency } from "../../utils/formatCurrency"
+import { clearFormatCurrency } from "../../utils/clearFormatCurrency"
 
 export const Customer = () => {
   const location = useLocation();
   const customer = location.state as ICustomer;
 
-  const [bankAccounts, setBankAccounts] = useState<IAccount[]>([])
-  const [bankAgencies, setBankAgencies] = useState<IAgency[]>([])
+  const [Accounts, setAccounts] = useState<IAccount[]>([])
+  const [Agencies, setAgencies] = useState<IAgency[]>([])
   const [loading, setLoading] = useState(true)
 
-  const getBankAccounts = async () => {
+  const getAccounts = async () => {
       try {
         const response = await fetch(import.meta.env.VITE_ACCOUNTS_API_URL)
         const csvText = await response.text()
   
-        const parsedBankAccounts: IAccount[] = parseCsv(csvText).map((bankAccount) => {
+        const parsedAccounts: IAccount[] = parseCsv(csvText).map((account) => {
           return {
-            id: bankAccount["id"],
-            customersCpfCnpj: bankAccount["cpfCnpjCliente"],
-            type: bankAccount["tipo"] as IAccount["type"],
-            balance: Number(bankAccount["saldo"]),
-            creditLimit: Number(bankAccount["limiteCredito"]),
-            creditAvailable: Number(bankAccount["creditoDisponivel"]),
+            id: account["id"],
+            customersCpfCnpj: account["cpfCnpjCliente"].replace(/\D/g, ''),
+            type: account["tipo"] as IAccount["type"],
+            balance: Number(clearFormatCurrency(account["saldo"])),
+            creditLimit: Number(clearFormatCurrency(account["limiteCredito"])),
+            creditAvailable: Number(clearFormatCurrency(account["creditoDisponivel"])),
           }
         })
   
-        setBankAccounts(parsedBankAccounts)
+        setAccounts(parsedAccounts)
       }
       catch (error) {
         console.error(error)
       }
   }
   
-  const getBankAgencies = async () => {
+  const getAgencies = async () => {
       try {
         const response = await fetch(import.meta.env.VITE_AGENCIES_API_URL)
         const csvText = await response.text()
   
-        const parsedBankAgencies: IAgency[] = parseCsv(csvText).map((bankAgency) => {
+        const parsedAgencies: IAgency[] = parseCsv(csvText).map((agency) => {
           return {
-            id: bankAgency["id"],
-            code: Number(bankAgency["codigo"]),
-            name: bankAgency["nome"],
-            address: bankAgency["endereco"],
+            id: agency["id"],
+            code: Number(agency["codigo"]),
+            name: agency["nome"],
+            address: agency["endereco"],
           }
         })
   
-        setBankAgencies(parsedBankAgencies)
+        setAgencies(parsedAgencies)
       }
       catch (error) {
         console.error(error)
@@ -59,7 +62,7 @@ export const Customer = () => {
   }
 
   useEffect(() => {
-      Promise.all([ getBankAccounts(), getBankAgencies() ])
+      Promise.all([ getAccounts(), getAgencies() ])
         .then(() => setLoading(false))
   }, [])
 
@@ -71,8 +74,8 @@ export const Customer = () => {
       )}
       {!loading && (
         <div>
-          <p>{bankAccounts.map(row => row.id)}</p>
-          <p>{bankAgencies.map(row => row.id)}</p>
+          <p>{Accounts.map(row => row.id)}</p>
+          <p>{Agencies.map(row => row.id)}</p>
           <p>{formatCurrency(customer.patrimony)}</p>
         </div>
       )}

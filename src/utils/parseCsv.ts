@@ -15,6 +15,8 @@ export const parseCsv = (csvText: string): Record<string, string>[] => {
         client[header] = values[index]
       })
 
+      console.log(client)
+
       return client
     })
   }
