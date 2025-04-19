@@ -14,9 +14,13 @@ export const Container = styled.div`
         width: 200px;
         margin: 32px 0 0 32px;
     }
+
+    > footer {
+        min-width: 800px;
+    }
 `
 
-export const TableContainer = styled.div`
+export const CustomersContainer = styled.section`
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -42,19 +46,5 @@ export const SkeletonTable = styled(Skeleton)`
         border-radius: 8px;
         flex: 1;
         margin: 0 32px;
-    }
-`
-
-export const Footer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(to right, ${colors.blue.dark} 20%, ${colors.blue.medium} 100%);
-    color: ${colors.gray.light};
-    padding: 32px;
-    width: 100%;
-
-    > span {
-        font-size: 12px;
     }
 `

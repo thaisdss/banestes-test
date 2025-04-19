@@ -1,20 +1,28 @@
 import { useEffect, useState } from "react"
-import { useLocation } from "react-router"
+import { useLocation, useNavigate } from "react-router"
 
-import { parseCsv } from "../../utils/parseCsv"
+import { InfosCustomer } from "./components/InfosCostumer"
+import { Footer } from "../../components/Footer"
+
+import UndoIcon from '@mui/icons-material/Undo'
+
 import { ICustomer } from "../../types/ICustomer"
 import { IAccount } from "../../types/IAccount"
 import { IAgency } from "../../types/IAgency"
 
-import { formatCurrency } from "../../utils/formatCurrency"
+import { parseCsv } from "../../utils/parseCsv"
 import { clearFormatCurrency } from "../../utils/clearFormatCurrency"
 
-export const Customer = () => {
-  const location = useLocation();
-  const customer = location.state as ICustomer;
+import { ButtonStyled, Container, Header } from "./styles"
+import logo from "../../assets/logo.png"
 
-  const [Accounts, setAccounts] = useState<IAccount[]>([])
-  const [Agencies, setAgencies] = useState<IAgency[]>([])
+export const Customer = () => {
+  const location = useLocation()
+  const customer = location.state as ICustomer
+  const navigate = useNavigate()
+
+  const [accounts, setAccounts] = useState<IAccount[]>([])
+  const [agencies, setAgencies] = useState<IAgency[]>([])
   const [loading, setLoading] = useState(true)
 
   const getAccounts = async () => {
@@ -55,6 +63,7 @@ export const Customer = () => {
         })
   
         setAgencies(parsedAgencies)
+        console.log(agencies, accounts)
       }
       catch (error) {
         console.error(error)
@@ -66,19 +75,28 @@ export const Customer = () => {
         .then(() => setLoading(false))
   }, [])
 
+  const handleBack = () => {
+    navigate("/")
+  }
+
   return (
-      <div>
-      <h1>Home</h1>
+    <Container>
+      <Header>
+        <img src={logo} alt="Banestes" />
+        <ButtonStyled 
+        startIcon={<UndoIcon />}
+        onClick={handleBack}
+        >
+          VOLTAR
+        </ButtonStyled>
+      </Header>
       {loading && (
         <p>Carregando...</p>
       )}
       {!loading && (
-        <div>
-          <p>{Accounts.map(row => row.id)}</p>
-          <p>{Agencies.map(row => row.id)}</p>
-          <p>{formatCurrency(customer.patrimony)}</p>
-        </div>
+          <InfosCustomer customer={customer} />
       )}
-    </div>
+      <Footer />
+    </Container>
   )
 }

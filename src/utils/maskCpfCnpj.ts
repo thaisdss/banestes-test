@@ -1,5 +1,5 @@
 export const maskCpfCnpj = (value: string) => {
-    value= value.replace(/\D/g,"") 
+    value = value.replace(/\D/g,"") 
 
     if(value.length === 14) {                          
         value= value.replace(/^(\d{2})(\d)/,"$1.$2")             

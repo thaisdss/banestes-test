@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 
-import { Table } from "./components/Table"
 import { SearchField } from "./components/SearchField"
+import { Table } from "./components/Table"
+import { Footer } from "./components/Footer"
 
 import { GridActionsCellItem, GridColDef, GridRowParams } from "@mui/x-data-grid"
 import SwitchAccountIcon from '@mui/icons-material/SwitchAccount';
@@ -15,9 +16,8 @@ import { maskCpfCnpj } from "./utils/maskCpfCnpj"
 import { formatCurrency } from "./utils/formatCurrency"
 import { clearFormatCurrency } from "./utils/clearFormatCurrency"
 
-import { Container, Footer, SkeletonSearchField, SkeletonTable, TableContainer } from "./styles/App.styles"
+import { Container, SkeletonSearchField, SkeletonTable, CustomersContainer } from "./styles/App.styles"
 import logo from "./assets/logo.png"
-import whiteLogo from "./assets/white-logo.png"
 
 export const App = () => {
   const navigate = useNavigate()
@@ -104,7 +104,7 @@ export const App = () => {
         </>
       )}
       {!loading && (
-        <TableContainer>
+        <CustomersContainer>
           <SearchField
           label="Nome ou CPF/CNPJ"
           handleSearch={filterCostumers}
@@ -113,12 +113,9 @@ export const App = () => {
           columns={columns} 
           rows={filteredCustomers} 
           />
-        </TableContainer>
+        </CustomersContainer>
       )}
-      <Footer>
-        <img src={whiteLogo} alt="Banestes" />
-        <span>© Banestes 2017. Todos os direitos reservados.</span>
-      </Footer>
+      <Footer />
     </Container>
   )
 }
