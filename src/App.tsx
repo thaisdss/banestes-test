@@ -5,7 +5,7 @@ import { Table } from "./components/Table"
 import { SearchField } from "./components/SearchField"
 
 import { GridActionsCellItem, GridColDef, GridRowParams } from "@mui/x-data-grid"
-import VisibilityIcon from '@mui/icons-material/Visibility'
+import SwitchAccountIcon from '@mui/icons-material/SwitchAccount';
 
 import { ICustomer } from "./types/ICustomer"
 
@@ -15,8 +15,9 @@ import { maskCpfCnpj } from "./utils/maskCpfCnpj"
 import { formatCurrency } from "./utils/formatCurrency"
 import { clearFormatCurrency } from "./utils/clearFormatCurrency"
 
-import { Container, TableContainer } from "./styles/App.styles"
+import { Container, Footer, SkeletonSearchField, SkeletonTable, TableContainer } from "./styles/App.styles"
 import logo from "./assets/logo.png"
+import whiteLogo from "./assets/white-logo.png"
 
 export const App = () => {
   const navigate = useNavigate()
@@ -81,11 +82,11 @@ export const App = () => {
     {field: 'annualIncome', headerName: 'Renda Anual', flex: 1, renderCell: (params) => formatCurrency(params.value)},
     {field:"actions", 
       type: "actions", 
-      headerName: "Ações",
+      headerName: "Ver Mais",
       flex: 0.5, 
       getActions: (params: GridRowParams) => [
       <GridActionsCellItem 
-      icon={<VisibilityIcon />}
+      icon={<SwitchAccountIcon />}
       label="Visualizar"
       onClick={() => handleViewCustomer(params.row.id)}
       showInMenu={false}
@@ -97,7 +98,10 @@ export const App = () => {
     <Container>
       <img src={logo} alt="Banestes" />
       {loading && (
-        <p>Carregando...</p>
+        <>
+          <SkeletonSearchField  variant="rectangular" />
+          <SkeletonTable variant="rectangular" />
+        </>
       )}
       {!loading && (
         <TableContainer>
@@ -111,6 +115,10 @@ export const App = () => {
           />
         </TableContainer>
       )}
+      <Footer>
+        <img src={whiteLogo} alt="Banestes" />
+        <span>© Banestes 2017. Todos os direitos reservados.</span>
+      </Footer>
     </Container>
   )
 }

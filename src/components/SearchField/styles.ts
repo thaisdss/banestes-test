@@ -10,6 +10,7 @@ export const FormControlStyled = styled(FormControl)`
     .MuiFormLabel-root {
         margin-left: 28px;
         color: ${colors.blue.dark};
+        font-family: 'Inter', sans-serif;
 
         &.Mui-focused {
             color: ${colors.blue.dark};
@@ -21,6 +22,7 @@ export const FormControlStyled = styled(FormControl)`
         border-top-right-radius: 8px;
         border-top-left-radius: 8px;
         color: ${colors.blue.dark};
+        font-family: 'Inter', sans-serif;
 
         &::after {
             border-bottom: 3px solid ${colors.blue.dark};

@@ -22,6 +22,7 @@ export const Table = <T extends GridValidRowModel>({ columns, rows }: TableProps
         pageSizeOptions={[10]}
         disableColumnResize
         disableColumnFilter
+        disableRowSelectionOnClick
         localeText={{
           ...ptBR.components.MuiDataGrid.defaultProps.localeText,
           noRowsLabel: "Nenhum cliente encontrado.",
