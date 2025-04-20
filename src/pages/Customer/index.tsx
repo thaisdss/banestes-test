@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router"
 
-import { InfosCustomer } from "./components/InfosCostumer"
+import { PersonalData } from "./components/PersonalData"
+import { Tabs } from "../../components/Tabs"
 import { Footer } from "../../components/Footer"
 
 import UndoIcon from '@mui/icons-material/Undo'
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 import { ICustomer } from "../../types/ICustomer"
 import { IAccount } from "../../types/IAccount"
@@ -13,8 +17,9 @@ import { IAgency } from "../../types/IAgency"
 import { parseCsv } from "../../utils/parseCsv"
 import { clearFormatCurrency } from "../../utils/clearFormatCurrency"
 
-import { ButtonStyled, Container, Header } from "./styles"
+import { ButtonStyled, Container, Header, AccountsContainer, TabPanelStyled, AgencyContainer, AgencyNotFound } from "./styles"
 import logo from "../../assets/logo.png"
+import { formatCurrency } from "../../utils/formatCurrency"
 
 export const Customer = () => {
   const location = useLocation()
@@ -22,8 +27,20 @@ export const Customer = () => {
   const navigate = useNavigate()
 
   const [accounts, setAccounts] = useState<IAccount[]>([])
-  const [agencies, setAgencies] = useState<IAgency[]>([])
+  const [agency, setAgency] = useState<IAgency | null>(null)
   const [loading, setLoading] = useState(true)
+
+  const filterAccounts = (accounts: IAccount[]) => {
+    const filtered = accounts.filter(account => {
+      if (account.customerCpfCnpj.length === 12) {
+        return account.customerCpfCnpj.slice(0, -1) === customer.cpfCnpj
+      }
+
+      return account.customerCpfCnpj === customer.cpfCnpj
+    })
+
+    setAccounts(filtered)
+  }
 
   const getAccounts = async () => {
       try {
@@ -33,25 +50,33 @@ export const Customer = () => {
         const parsedAccounts: IAccount[] = parseCsv(csvText).map((account) => {
           return {
             id: account["id"],
-            customersCpfCnpj: account["cpfCnpjCliente"].replace(/\D/g, ''),
+            customerCpfCnpj: account["cpfCnpjCliente"].replace(/\D/g, ''),
             type: account["tipo"] as IAccount["type"],
             balance: Number(clearFormatCurrency(account["saldo"])),
             creditLimit: Number(clearFormatCurrency(account["limiteCredito"])),
             creditAvailable: Number(clearFormatCurrency(account["creditoDisponivel"])),
           }
         })
-  
-        setAccounts(parsedAccounts)
+
+        filterAccounts(parsedAccounts)
       }
       catch (error) {
         console.error(error)
       }
+  }
+
+  const findAgency = (agencies: IAgency[]) => {
+    const customerAgency = agencies.find(agency => agency.code === customer.agencyCode)
+
+    setAgency(customerAgency || null)
   }
   
   const getAgencies = async () => {
       try {
         const response = await fetch(import.meta.env.VITE_AGENCIES_API_URL)
         const csvText = await response.text()
+
+        console.log(csvText)
   
         const parsedAgencies: IAgency[] = parseCsv(csvText).map((agency) => {
           return {
@@ -61,23 +86,22 @@ export const Customer = () => {
             address: agency["endereco"],
           }
         })
-  
-        setAgencies(parsedAgencies)
-        console.log(agencies, accounts)
+
+        findAgency(parsedAgencies)
       }
       catch (error) {
         console.error(error)
       }
   }
 
+  const handleBack = () => {
+    navigate("/")
+  }
+
   useEffect(() => {
       Promise.all([ getAccounts(), getAgencies() ])
         .then(() => setLoading(false))
   }, [])
-
-  const handleBack = () => {
-    navigate("/")
-  }
 
   return (
     <Container>
@@ -94,7 +118,45 @@ export const Customer = () => {
         <p>Carregando...</p>
       )}
       {!loading && (
-          <InfosCustomer customer={customer} />
+        <>
+          <PersonalData customer={customer} />
+          <Tabs 
+          labels={["Contas", "Agência"]}
+          >
+            {accounts.map(account => (
+              <TabPanelStyled value={1} key={account.id}>
+                <AccountsContainer>
+                  <div>
+                    <KeyboardArrowRightIcon />
+                    <span>Conta {account.type[0].toUpperCase() + account.type.slice(1)}</span>
+                  </div>
+                  <p>Saldo: {formatCurrency(account.balance)}</p>
+                  <p>Limite de Crédito: {formatCurrency(account.creditLimit)}</p>
+                  <p>Crédito Disponível: {formatCurrency(account.creditAvailable)}</p>
+                </AccountsContainer>
+              </TabPanelStyled>
+            ))}
+            {agency && (
+              <TabPanelStyled value={2}>
+                <AgencyContainer>
+                  <div>
+                    <AccountBalanceIcon />
+                    <span>{agency.code} - {agency.name}</span>
+                  </div>
+                  <div>
+                    <LocationOnIcon />
+                    <span>{agency.address}</span>
+                  </div>
+                </AgencyContainer>
+              </TabPanelStyled>
+            )}
+            {!agency && (
+              <TabPanelStyled value={2}>
+                <AgencyNotFound>Agência não encontrada</AgencyNotFound>
+              </TabPanelStyled>
+            )}
+          </Tabs>
+        </>
       )}
       <Footer />
     </Container>

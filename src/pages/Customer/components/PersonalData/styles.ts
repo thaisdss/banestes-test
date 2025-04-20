@@ -12,7 +12,7 @@ export const Container = styled.section`
         border-radius: 100%;
         width: 200px;
         height: 200px;
-        border: 4px solid ${colors.green};
+        border: 4px solid ${colors.green.medium};
     }
 `
 
@@ -27,14 +27,14 @@ export const InfosContainer = styled.div`
         flex-direction: column;
         gap: 8px;
 
-        > h3 {
+        > h4 {
             color: ${colors.blue.dark};
             font-size: 16px;
             font-weight: 700;
             text-transform: uppercase;
         }
 
-        > span {
+        > p {
             color: ${colors.black};
             font-size: 16px;
             font-weight: 400;

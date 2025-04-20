@@ -78,8 +78,8 @@ export const App = () => {
   const columns: GridColDef<ICustomer>[] = [
     {field: "name", headerName: "Nome", flex: 1},
     {field: 'cpfCnpj', headerName: 'CPF/CNPJ', flex: 1, renderCell: (params) => maskCpfCnpj(params.value)},
-    {field: 'email', headerName: 'E-mail', flex: 1},
     {field: 'annualIncome', headerName: 'Renda Anual', flex: 1, renderCell: (params) => formatCurrency(params.value)},
+    {field: 'agencyCode', headerName: 'Agência', flex: 1},
     {field:"actions", 
       type: "actions", 
       headerName: "Ver Mais",

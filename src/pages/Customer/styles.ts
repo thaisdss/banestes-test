@@ -1,12 +1,17 @@
 import { styled } from "styled-components";
 import { colors } from "../../styles/colors";
 import { Button } from "@mui/material";
+import TabPanel from "@mui/lab/TabPanel";
 
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 32px;
     width: 100%;
+
+    > footer {
+        margin-top: 32px;
+    }
 `
 
 export const Header = styled.header`
@@ -39,4 +44,77 @@ export const ButtonStyled = styled(Button)`
             background-color: ${colors.blue.light};
         }
     }
+`
+
+export const TabPanelStyled = styled(TabPanel)`
+    &.MuiTabPanel-root {
+        padding: 0 32px;
+    }
+`
+
+export const AccountsContainer = styled.div`
+    background-color: ${colors.white};
+    border-radius: 8px;
+    box-shadow: 0 4px 12px ${colors.gray.medium};
+    padding: 32px;
+
+    > div {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        margin-bottom: 16px;
+
+        > span {
+            font-size: 18px;
+        }
+
+        > svg {
+            color: ${colors.blue.dark}
+        }
+    }
+
+    > p {
+        font-size: 16px;
+
+        &:not(:last-of-type) {
+            margin-bottom: 4px;
+        }
+
+        &:nth-of-type(2) {
+            color: ${colors.blue.dark}
+        }
+
+        &:last-of-type {
+            color: ${colors.green.dark};
+        }
+    }
+`
+
+export const AgencyContainer = styled.div`
+    background-color: ${colors.white};
+    border-radius: 8px;
+    box-shadow: 0 4px 12px ${colors.gray.medium};
+    padding: 32px;
+
+    > div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 16px;
+
+        > svg {
+            font-size: 20px;
+            color: ${colors.blue.dark}
+        }
+    }
+
+    :first-child {
+        margin-bottom: 4px;
+    }
+`
+
+export const AgencyNotFound = styled.h3`
+    color: ${colors.gray.dark};
+    font-size: 16px;
+    text-align: center;
 `

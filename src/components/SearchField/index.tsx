@@ -4,7 +4,7 @@ import SearchIcon from '@mui/icons-material/Search'
 import { FormControlStyled } from "./styles";
 
 type SearchFieldProps = {
-    label: string;
+    label: string
     handleSearch: (search: string) => void
 }
 

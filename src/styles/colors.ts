@@ -9,7 +9,10 @@ export const colors = {
         medium: "#D7DFEA",
         light: "#E0E0F4"
     },
-    green: "#60C337",
+    green: {
+        dark: "#008000",
+        medium: "#60C337"
+    },
     white: "#FFFFFF",
     black: "#000000"
 }

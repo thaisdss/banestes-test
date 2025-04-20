@@ -1,6 +1,6 @@
 export interface IAccount {
     id: string;
-    customersCpfCnpj: string;
+    customerCpfCnpj: string;
     type: "corrente" | "poupanca"
     balance: number;
     creditLimit: number;

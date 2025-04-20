@@ -3,8 +3,8 @@ import { ptBR } from '@mui/x-data-grid/locales'
 import { DataGridStyled } from './styles';
 
 type TableProps<T extends GridValidRowModel> = {
-  columns: GridColDef[];
-  rows: T[];
+  columns: GridColDef[]
+  rows: T[]
 };
 
 export const Table = <T extends GridValidRowModel>({ columns, rows }: TableProps<T>) => {
