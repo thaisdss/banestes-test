@@ -57,6 +57,8 @@ export const Customer = () => {
       try {
         const response = await fetch(ACCOUNTS_API_URL)
         const csvText = await response.text()
+
+        console.log(csvText)
   
         const parsedAccounts: IAccount[] = parseCsv(csvText).map((account) => {
           return {
