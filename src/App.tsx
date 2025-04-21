@@ -24,6 +24,8 @@ import {
 } from "./styles/App.styles"
 import logo from "./assets/logo.png"
 
+const CUSTOMERS_API_URL = "https://docs.google.com/spreadsheets/d/1PBN_HQOi5ZpKDd63mouxttFvvCwtmY97Tb5if5_cdBA/gviz/tq?tqx=out:csv&sheet=clientes"
+
 export const App = () => {
   const navigate = useNavigate()
 
@@ -33,7 +35,7 @@ export const App = () => {
 
   const getClients = async () => {
     try {
-      const response = await fetch(import.meta.env.VITE_CUSTOMERS_API_URL)
+      const response = await fetch(CUSTOMERS_API_URL)
       const csvText = await response.text()
 
       const parsedClients: ICustomer[] = parseCsv(csvText).map((customer) => {

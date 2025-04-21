@@ -30,6 +30,8 @@ import {
 } from "./styles"
 import logo from "../../assets/logo.png"
 
+const ACCOUNTS_API_URL = "https://docs.google.com/spreadsheets/d/1PBN_HQOi5ZpKDd63mouxttFvvCwtmY97Tb5if5_cdBA/gviz/tq?tqx=out:csv&sheet=contas"
+const AGENCIES_API_URL = "https://docs.google.com/spreadsheets/d/1PBN_HQOi5ZpKDd63mouxttFvvCwtmY97Tb5if5_cdBA/gviz/tq?tqx=out:csv&sheet=agencias"
 export const Customer = () => {
   const location = useLocation()
   const customer = location.state as ICustomer
@@ -53,7 +55,7 @@ export const Customer = () => {
 
   const getAccounts = async () => {
       try {
-        const response = await fetch(import.meta.env.VITE_ACCOUNTS_API_URL)
+        const response = await fetch(ACCOUNTS_API_URL)
         const csvText = await response.text()
   
         const parsedAccounts: IAccount[] = parseCsv(csvText).map((account) => {
@@ -82,7 +84,7 @@ export const Customer = () => {
   
   const getAgencies = async () => {
       try {
-        const response = await fetch(import.meta.env.VITE_AGENCIES_API_URL)
+        const response = await fetch(AGENCIES_API_URL)
         const csvText = await response.text()
   
         const parsedAgencies: IAgency[] = parseCsv(csvText).map((agency) => {
