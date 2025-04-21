@@ -14,8 +14,8 @@ export const DataGridStyled = styled(DataGrid)`
         font-weight: 700;
     }
 
-    &.MuiDataGrid-root .MuiDataGrid-columnHeader, 
-    &.MuiDataGrid-root .MuiDataGrid-cell {
+    &.MuiDataGrid-root .MuiDataGrid-columnHeader:not([data-field="actions"]), 
+    &.MuiDataGrid-root .MuiDataGrid-cell:not([data-field="actions"]) {
         padding: 0 0 0 24px;
     }
 
@@ -50,6 +50,10 @@ export const DataGridStyled = styled(DataGrid)`
         .MuiDataGrid-columnSeparator {
             display: none;
         }
+    }
+
+    .MuiDataGrid-columnHeader.MuiDataGrid-withBorderColor {
+        border-color: transparent;
     }
 
     .MuiDataGrid-iconButtonContainer .MuiButtonBase-root .MuiSvgIcon-root,

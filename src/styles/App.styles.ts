@@ -24,7 +24,7 @@ export const CustomersContainer = styled.section`
     display: flex;
     flex-direction: column;
     gap: 24px;
-    min-width: 800px;
+    min-width: 1200px;
     width: 100%;
     padding: 0 32px;
 `
