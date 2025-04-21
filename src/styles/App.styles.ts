@@ -16,7 +16,7 @@ export const Container = styled.div`
     }
 
     > footer {
-        min-width: 800px;
+        min-width: 1200px;
     }
 `
 
