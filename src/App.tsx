@@ -6,7 +6,7 @@ import { Table } from "./components/Table"
 import { Footer } from "./components/Footer"
 
 import { GridActionsCellItem, GridColDef, GridRowParams } from "@mui/x-data-grid"
-import SwitchAccountIcon from '@mui/icons-material/SwitchAccount';
+import SwitchAccountIcon from '@mui/icons-material/SwitchAccount'
 
 import { ICustomer } from "./types/ICustomer"
 
@@ -16,7 +16,12 @@ import { maskCpfCnpj } from "./utils/maskCpfCnpj"
 import { formatCurrency } from "./utils/formatCurrency"
 import { clearFormatCurrency } from "./utils/clearFormatCurrency"
 
-import { Container, SkeletonSearchField, SkeletonTable, CustomersContainer } from "./styles/App.styles"
+import { 
+  Container, 
+  SkeletonSearchField, 
+  SkeletonTable, 
+  CustomersContainer 
+} from "./styles/App.styles"
 import logo from "./assets/logo.png"
 
 export const App = () => {

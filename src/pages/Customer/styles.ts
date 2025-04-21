@@ -1,17 +1,13 @@
-import { styled } from "styled-components";
-import { colors } from "../../styles/colors";
-import { Button } from "@mui/material";
-import TabPanel from "@mui/lab/TabPanel";
+import { styled } from "styled-components"
+import { colors } from "../../styles/colors"
+import { Button } from "@mui/material"
+import TabPanel from "@mui/lab/TabPanel"
 
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 32px;
     width: 100%;
-
-    > footer {
-        margin-top: 32px;
-    }
 `
 
 export const Header = styled.header`
@@ -21,7 +17,7 @@ export const Header = styled.header`
     width: 100%;
     background-color: ${colors.white};
     padding: 32px;
-    box-shadow: 0 4px 12px ${colors.gray.medium};
+    box-shadow: 4px 4px 12px ${colors.gray.medium};
 
     > img {
         width: 200px;
@@ -55,7 +51,7 @@ export const TabPanelStyled = styled(TabPanel)`
 export const AccountsContainer = styled.div`
     background-color: ${colors.white};
     border-radius: 8px;
-    box-shadow: 0 4px 12px ${colors.gray.medium};
+    box-shadow: 4px 4px 12px ${colors.gray.medium};
     padding: 32px;
 
     > div {

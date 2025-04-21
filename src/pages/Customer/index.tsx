@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useLocation, useNavigate } from "react-router"
 
+import { CustomerSkeleton } from "./components/CustomerSkeleton"
 import { PersonalData } from "./components/PersonalData"
 import { Tabs } from "../../components/Tabs"
 import { Footer } from "../../components/Footer"
@@ -8,7 +9,7 @@ import { Footer } from "../../components/Footer"
 import UndoIcon from '@mui/icons-material/Undo'
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 
 import { ICustomer } from "../../types/ICustomer"
 import { IAccount } from "../../types/IAccount"
@@ -16,10 +17,18 @@ import { IAgency } from "../../types/IAgency"
 
 import { parseCsv } from "../../utils/parseCsv"
 import { clearFormatCurrency } from "../../utils/clearFormatCurrency"
-
-import { ButtonStyled, Container, Header, AccountsContainer, TabPanelStyled, AgencyContainer, AgencyNotFound } from "./styles"
-import logo from "../../assets/logo.png"
 import { formatCurrency } from "../../utils/formatCurrency"
+
+import { 
+  ButtonStyled, 
+  Container, 
+  Header, 
+  AccountsContainer, 
+  TabPanelStyled, 
+  AgencyContainer, 
+  AgencyNotFound 
+} from "./styles"
+import logo from "../../assets/logo.png"
 
 export const Customer = () => {
   const location = useLocation()
@@ -75,8 +84,6 @@ export const Customer = () => {
       try {
         const response = await fetch(import.meta.env.VITE_AGENCIES_API_URL)
         const csvText = await response.text()
-
-        console.log(csvText)
   
         const parsedAgencies: IAgency[] = parseCsv(csvText).map((agency) => {
           return {
@@ -115,7 +122,7 @@ export const Customer = () => {
         </ButtonStyled>
       </Header>
       {loading && (
-        <p>Carregando...</p>
+        <CustomerSkeleton />
       )}
       {!loading && (
         <>
@@ -128,7 +135,8 @@ export const Customer = () => {
                 <AccountsContainer>
                   <div>
                     <KeyboardArrowRightIcon />
-                    <span>Conta {account.type[0].toUpperCase() + account.type.slice(1)}</span>
+                    {account.type === "poupanca" && <span>Conta Poupança</span>}
+                    {account.type === "corrente" && <span>Conta Corrente</span>}
                   </div>
                   <p>Saldo: {formatCurrency(account.balance)}</p>
                   <p>Limite de Crédito: {formatCurrency(account.creditLimit)}</p>

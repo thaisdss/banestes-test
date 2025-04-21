@@ -51,7 +51,7 @@ export const PersonalData = ({ customer }: PersonalDataProps) => {
     },
     {
       title: "Estado Civil",
-      content: customer.maritalStatus
+      content: `${customer.maritalStatus} (a)`
     },
     {
       title: "Agência",

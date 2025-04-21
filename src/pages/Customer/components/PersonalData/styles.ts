@@ -1,4 +1,5 @@
 import { styled } from "styled-components"
+
 import { colors } from "../../../../styles/colors"
 
 export const Container = styled.section`
@@ -6,13 +7,17 @@ export const Container = styled.section`
     align-items: center;
     gap: 32px;
     width: 100%;
-    padding: 32px;
+    padding: 0 32px;
 
     > img {
         border-radius: 100%;
         width: 200px;
         height: 200px;
         border: 4px solid ${colors.green.medium};
+    }
+
+    @media (max-width: 1000px) {
+        flex-direction: column;
     }
 `
 
@@ -39,5 +44,13 @@ export const InfosContainer = styled.div`
             font-size: 16px;
             font-weight: 400;
         }
+    }
+
+    @media (max-width: 1000px) {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    @media (max-width: 600px) {
+        grid-template-columns: 1fr;
     }
 `

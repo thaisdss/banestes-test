@@ -14,16 +14,20 @@ export const DataGridStyled = styled(DataGrid)`
         font-weight: 700;
     }
 
+    &.MuiDataGrid-root .MuiDataGrid-columnHeader, 
+    &.MuiDataGrid-root .MuiDataGrid-cell {
+        padding: 0 0 0 24px;
+    }
+
     .MuiDataGrid-row {
         background-color: ${colors.white};
 
         .MuiDataGrid-cell {
             color: ${colors.gray.dark};
             font-size: 16px;
-            padding-left: 20px;
 
             .MuiButtonBase-root .MuiSvgIcon-root {
-                color: ${colors.gray.dark};
+                color: ${colors.blue.dark};
             }
         }
     }
@@ -36,10 +40,6 @@ export const DataGridStyled = styled(DataGrid)`
 
     .MuiDataGrid-columnHeader {
         background-color: ${colors.blue.dark};
-
-        .MuiDataGrid-columnHeaderTitleContainer:not(:last-child) {
-            padding-left: 20px;
-        }
 
         .MuiDataGrid-columnHeaderTitle {
             font-size: 16px;
