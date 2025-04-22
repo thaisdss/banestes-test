@@ -9,6 +9,7 @@ export const DataGridStyled = styled(DataGrid)`
     }
 
     .MuiDataGrid-overlay {
+        background-color: ${colors.white};
         color: ${colors.gray.dark};
         font-size: 16px;
         font-weight: 700;
@@ -16,7 +17,7 @@ export const DataGridStyled = styled(DataGrid)`
 
     &.MuiDataGrid-root .MuiDataGrid-columnHeader:not([data-field="actions"]), 
     &.MuiDataGrid-root .MuiDataGrid-cell:not([data-field="actions"]) {
-        padding: 0 0 0 24px;
+        padding: 0;
     }
 
     .MuiDataGrid-row {
@@ -25,6 +26,7 @@ export const DataGridStyled = styled(DataGrid)`
         .MuiDataGrid-cell {
             color: ${colors.gray.dark};
             font-size: 16px;
+            text-align: center;
 
             .MuiButtonBase-root .MuiSvgIcon-root {
                 color: ${colors.blue.dark};
@@ -40,6 +42,10 @@ export const DataGridStyled = styled(DataGrid)`
 
     .MuiDataGrid-columnHeader {
         background-color: ${colors.blue.dark};
+
+        .MuiDataGrid-columnHeaderTitleContainer {
+            justify-content: center;
+        }
 
         .MuiDataGrid-columnHeaderTitle {
             font-size: 16px;

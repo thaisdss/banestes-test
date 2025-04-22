@@ -103,7 +103,9 @@ export const App = () => {
 
   return (
     <Container>
-      <img src={logo} alt="Banestes" />
+      <header>
+        <img src={logo} alt="Banestes" />
+      </header>
       {loading && (
         <>
           <SkeletonSearchField  variant="rectangular" />

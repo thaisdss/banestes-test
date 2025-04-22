@@ -3,7 +3,7 @@ import { colors } from "../../styles/colors"
 import { styled } from "styled-components"
 
 export const FormControlStyled = styled(FormControl)`
-    background-color: ${colors.blue.light};
+    background-color: ${colors.white};
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
 

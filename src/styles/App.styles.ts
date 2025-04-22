@@ -10,9 +10,14 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 32px;
 
-    > img {
-        width: 200px;
-        margin: 32px 0 0 32px;
+    > header {
+        background-color: ${colors.white};
+        box-shadow: 4px 4px 12px ${colors.gray.medium};
+        padding: 32px;
+
+        > img {
+            width: 200px;
+        }
     }
 
     > footer {

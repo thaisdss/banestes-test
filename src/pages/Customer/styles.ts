@@ -8,19 +8,27 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 32px;
     width: 100%;
-`
+    min-height: 100vh;
 
-export const Header = styled.header`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    background-color: ${colors.white};
-    padding: 32px;
-    box-shadow: 4px 4px 12px ${colors.gray.medium};
+    > header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        background-color: ${colors.white};
+        padding: 32px;
+        box-shadow: 4px 4px 12px ${colors.gray.medium};
 
-    > img {
-        width: 200px;
+        > img {
+            width: 200px;
+        }
+    }
+
+    > main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
     }
 `
 
@@ -57,7 +65,7 @@ export const AccountsContainer = styled.div`
     > div {
         display: flex;
         align-items: center;
-        gap: 4px;
+        gap: 8px;
         margin-bottom: 16px;
 
         > span {
@@ -65,6 +73,7 @@ export const AccountsContainer = styled.div`
         }
 
         > svg {
+            font-size: 20px;
             color: ${colors.blue.dark}
         }
     }

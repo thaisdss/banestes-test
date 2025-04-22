@@ -9,7 +9,7 @@ import { Footer } from "../../components/Footer"
 import UndoIcon from '@mui/icons-material/Undo'
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
 import LocationOnIcon from '@mui/icons-material/LocationOn'
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
+
 
 import { ICustomer } from "../../types/ICustomer"
 import { IAccount } from "../../types/IAccount"
@@ -22,7 +22,6 @@ import { formatCurrency } from "../../utils/formatCurrency"
 import { 
   ButtonStyled, 
   Container, 
-  Header, 
   AccountsContainer, 
   TabPanelStyled, 
   AgencyContainer, 
@@ -116,7 +115,7 @@ export const Customer = () => {
 
   return (
     <Container>
-      <Header>
+      <header>
         <img src={logo} alt="Banestes" />
         <ButtonStyled 
         startIcon={<UndoIcon />}
@@ -124,12 +123,12 @@ export const Customer = () => {
         >
           VOLTAR
         </ButtonStyled>
-      </Header>
+      </header>
       {loading && (
         <CustomerSkeleton />
       )}
       {!loading && (
-        <>
+        <main>
           <PersonalData customer={customer} />
           <Tabs 
           labels={["Contas", "Agência"]}
@@ -138,7 +137,7 @@ export const Customer = () => {
               <TabPanelStyled value={1} key={account.id}>
                 <AccountsContainer>
                   <div>
-                    <KeyboardArrowRightIcon />
+                    <AccountBalanceIcon />
                     {account.type === "poupanca" && <span>Conta Poupança</span>}
                     {account.type === "corrente" && <span>Conta Corrente</span>}
                   </div>
@@ -168,7 +167,7 @@ export const Customer = () => {
               </TabPanelStyled>
             )}
           </Tabs>
-        </>
+        </main>
       )}
       <Footer />
     </Container>
