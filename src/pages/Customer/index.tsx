@@ -163,7 +163,9 @@ export const Customer = () => {
             )}
             {!agency && (
               <TabPanelStyled value={2}>
-                <AgencyNotFound>Agência não encontrada</AgencyNotFound>
+                <AgencyNotFound>
+                  <span>Agência não encontrada</span>
+                </AgencyNotFound>
               </TabPanelStyled>
             )}
           </Tabs>

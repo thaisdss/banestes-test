@@ -118,8 +118,16 @@ export const AgencyContainer = styled.div`
     }
 `
 
-export const AgencyNotFound = styled.h3`
-    color: ${colors.gray.dark};
-    font-size: 16px;
-    text-align: center;
+export const AgencyNotFound = styled.div`
+    background-color: ${colors.white};
+    border-radius: 8px;
+    box-shadow: 0 4px 12px ${colors.gray.medium};
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > span {
+        font-size: 16px;
+    }
 `
